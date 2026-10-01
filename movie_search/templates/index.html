@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<header class="masthead bg-primary text-white text-center">
+    <div class="container d-flex align-items-center flex-column">
+        <h1 class="masthead-heading text-uppercase mb-0">Movie Info Finder</h1>
+    </div>
+</header>
+
+<!-- Movie Search Form -->
+<div class="container mt-5">
+    <h2>Search for a Movie</h2>
+    <form method="POST" action="{% url 'movie_info' %}">
+        {% csrf_token %}
+        <input type="text" id="movie-name" name="movie_name" placeholder="Enter movie name" required>
+        <button type="submit" class="btn">Search</button>
+    </form>
+</div>
+
+<!-- Movie Info -->
+<div id="movie-info" class="container mt-5">
+    {% if movie_info %}
+        {% if movie_info.error %}
+            <p>{{ movie_info.error }}</p>
+        {% else %}
+            <h3>{{ movie_info.Title }} ({{ movie_info.Year }})</h3>
+            <p><strong>Director:</strong> {{ movie_info.Director }}</p>
+            <p><strong>Plot:</strong> {{ movie_info.Plot }}</p>
+            <img src="{{ movie_info.Poster }}" alt="Poster" style="max-width: 200px;">
+        {% endif %}
+    {% endif %}
+</div>
+
+{% endblock %}

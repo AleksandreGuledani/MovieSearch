@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %} Profile {% endblock %}
+
+{% block content %}
+<div class="profile-container">
+    <h1 class="profile-title">{{ user.username }}'s Profile</h1>
+
+    <div class="search-history">
+        <h2>Your Movie Searches:</h2>
+        {% if movie_searches %}
+            <ul class="search-list">
+                {% for search in movie_searches %}
+                    <li class="search-item">
+                        <span class="movie-name">{{ search.movie_name }}</span>
+                        <span class="search-time">(searched at {{ search.search_time|date:"F j, Y, g:i a" }})</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="no-searches">You haven't searched for any movies yet.</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}
+
+
